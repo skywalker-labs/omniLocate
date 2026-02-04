@@ -94,10 +94,24 @@ jobs:
           restore-keys: ${{ runner.os }}-composer-
 
       - name: Install dependencies
+        env:
+          COMPOSER_PROCESS_TIMEOUT: 0
         run: |
           composer config audit.block-insecure false
           composer require "laravel/framework:${{ matrix.laravel }}" "orchestra/testbench:${{ matrix.testbench }}" "phpunit/phpunit:${{ matrix.phpunit }}" --no-interaction --no-update --dev
-          composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-audit
+          # Retry composer update up to 3 times to handle transient network issues (like SSL timeouts)
+          n=0
+          until [ "$n" -ge 3 ]
+          do
+             composer update --${{ matrix.dependency-version }} --prefer-dist --no-interaction --no-audit && break
+             n=$((n+1))
+             echo "Composer update failed. Retrying in 10 seconds... (Attempt $n/3)"
+             sleep 10
+          done
+          if [ $n -ge 3 ]; then
+            echo "Composer update failed after 3 attempts."
+            exit 1
+          fi
 
       - name: Execute tests
         run: vendor/bin/phpunit
