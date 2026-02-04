@@ -1,5 +1,5 @@
 <p align="center">
-    <img src="art/omnilocate_banner.png" alt="OmniLocate Banner" width="100%">
+    <img src="https://raw.githubusercontent.com/ermradulsharma/omniLocate/main/art/omnilocate_banner.png" alt="OmniLocate Banner" width="100%">
 </p>
 
 # OmniLocate
