@@ -10,7 +10,8 @@
     "license": "MIT",
     "homepage": "https://github.com/ermradulsharma/omniLocate",
     "support": {
-        "source": "https://github.com/ermradulsharma/omniLocate"
+        "source": "https://github.com/ermradulsharma/omniLocate",
+        "wiki": "https://github.com/ermradulsharma/omniLocate/wiki"
     },
     "funding": [
         {
