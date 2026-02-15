@@ -5,9 +5,11 @@ namespace Skywalker\Location\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Skywalker\Location\Services\HybridVerifier;
+use Skywalker\Support\Http\Concerns\ApiResponse;
 
 class HybridLocationController extends Controller
 {
+    use ApiResponse;
     /**
      * Verify location.
      *
@@ -38,7 +40,6 @@ class HybridLocationController extends Controller
         // Log to analytics if blocked/spoofed? 
         // Logic could be added here or via middleware.
 
-        return response()->json($result);
+        return $this->apiSuccess($result, 'Location verification completed');
     }
 }
-

@@ -2,8 +2,9 @@
 
 namespace Skywalker\Location\Exceptions;
 
-class LocationException extends \Exception
+use Skywalker\Support\Exceptions\PackageException;
+
+class LocationException extends PackageException
 {
     //
 }
-

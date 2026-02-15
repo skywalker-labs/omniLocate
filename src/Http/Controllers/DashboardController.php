@@ -5,9 +5,11 @@ namespace Skywalker\Location\Http\Controllers;
 use Illuminate\Routing\Controller;
 use Skywalker\Location\Models\GeoAnalytics;
 use Illuminate\Support\Facades\DB;
+use Skywalker\Support\Http\Concerns\ApiResponse;
 
 class DashboardController extends Controller
 {
+    use ApiResponse;
     /**
      * Show the dashboard view.
      *
@@ -46,13 +48,12 @@ class DashboardController extends Controller
         // 5. Recent Logs
         $logs = GeoAnalytics::latest()->limit(10)->get();
 
-        return response()->json([
+        return $this->apiSuccess([
             'total_requests' => $total,
             'blocked_threats' => $threats,
             'top_countries' => $topCountries,
             'risk_distribution' => [$lowRisk, $medRisk, $highRisk],
             'logs' => $logs
-        ]);
+        ], 'Dashboard statistics retrieved successfully');
     }
 }
-

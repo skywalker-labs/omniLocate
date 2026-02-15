@@ -4,9 +4,11 @@ namespace Skywalker\Location\Middleware;
 
 use Closure;
 use Skywalker\Location\Facades\Location;
+use Skywalker\Support\Http\Concerns\ApiResponse;
 
 class TorBlocker
 {
+    use ApiResponse;
     /**
      * Handle an incoming request.
      *
@@ -21,11 +23,10 @@ class TorBlocker
             $position = Location::get();
 
             if ($position && $position->isTor) {
-                return response('Access Denied: Tor Network not allowed.', 403);
+                return $this->apiError('Access Denied: Tor Network not allowed.', 403);
             }
         }
 
         return $next($request);
     }
 }
-

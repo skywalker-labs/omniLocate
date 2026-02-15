@@ -2,7 +2,7 @@
 
 namespace Skywalker\Location\Commands;
 
-use Illuminate\Console\Command;
+use Skywalker\Support\Console\Command;
 
 class UpdateMaxMindDatabase extends Command
 {
@@ -25,7 +25,7 @@ class UpdateMaxMindDatabase extends Command
      *
      * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $url = 'https://download.maxmind.com/app/geoip_download?edition_id=GeoLite2-City&suffix=tar.gz&license_key=' . config('location.maxmind.web.license_key');
 
@@ -40,8 +40,6 @@ class UpdateMaxMindDatabase extends Command
         // For now, this is a placeholder for the logic.
         $this->warn('Download logic requires GZIP and TAR support. Ensure your environment is configured.');
 
-        return 0;
+        return static::SUCCESS;
     }
 }
-
-

@@ -9,6 +9,12 @@ use Skywalker\Location\Services\HybridVerifier;
 
 class HybridLocationTest extends TestCase
 {
+    protected function getEnvironmentSetUp($app)
+    {
+        $app['config']->set('app.key', 'base64:6Cu/ozj4gPtIjmXjr8EdVnGFNsdRqZfHfVjQkmTlg4Y=');
+        $app['config']->set('app.debug', true);
+    }
+
     public function test_hybrid_verification_spoofed()
     {
         // Mock Location::get('1.2.3.4') to return New York
@@ -56,5 +62,29 @@ class HybridLocationTest extends TestCase
         $this->assertTrue($result['verified']);
         $this->assertLessThan(20, $result['distance_km']);
     }
-}
 
+    public function test_verify_route()
+    {
+        $ny = new Position();
+        $ny->latitude = 40.7128;
+        $ny->longitude = -74.0060;
+        $ny->countryCode = 'US';
+
+        Location::shouldReceive('get')->with('1.2.3.4')->andReturn($ny);
+
+        $response = $this->postJson(route('omni-locate.verify'), [
+            'test_ip' => '1.2.3.4',
+            'latitude' => 40.7128,
+            'longitude' => -74.0060,
+        ]);
+
+        $response->assertStatus(200)
+            ->assertJson([
+                'status' => 'success',
+                'data' => [
+                    'is_spoofed' => false,
+                    'verified' => true
+                ]
+            ]);
+    }
+}

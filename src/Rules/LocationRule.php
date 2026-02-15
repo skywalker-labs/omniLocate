@@ -2,10 +2,10 @@
 
 namespace Skywalker\Location\Rules;
 
-use Illuminate\Contracts\Validation\Rule;
+use Skywalker\Support\Validation\Rule;
 use Skywalker\Location\Facades\Location;
 
-class LocationRule implements Rule
+class LocationRule extends Rule
 {
     /**
      * The country name or code to validate against.
@@ -51,4 +51,3 @@ class LocationRule implements Rule
         return 'The :attribute must be located in ' . $this->country . '.';
     }
 }
-

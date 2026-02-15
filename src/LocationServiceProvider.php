@@ -12,7 +12,7 @@ class LocationServiceProvider extends PackageServiceProvider
      *
      * @var string
      */
-    protected $vendor = 'skywalker';
+    protected $vendor = 'skywalker-labs';
 
     /**
      * Package name.
@@ -20,12 +20,11 @@ class LocationServiceProvider extends PackageServiceProvider
      * @var string
      */
     protected $package = 'location';
+
     /**
-     * Run boot operations.
-     *
-     * @return void
+     * Bootstrap the application services.
      */
-    public function boot()
+    public function boot(): void
     {
         parent::boot();
 
@@ -36,56 +35,17 @@ class LocationServiceProvider extends PackageServiceProvider
         $this->publishAll();
 
         if ($this->app['config']->get('location.dashboard.enabled', true)) {
-            $this->loadRoutesFrom(__DIR__ . '/routes.php');
+            $this->loadRoutesFrom(__DIR__ . DIRECTORY_SEPARATOR . 'routes.php');
         }
 
         $this->loadViews();
-
-        $this->registerBladeDirectives();
-
         $this->registerValidationRules();
     }
 
     /**
-     * Register the validation rules.
-     *
-     * @return void
+     * Register the application services.
      */
-    protected function registerValidationRules()
-    {
-        if (! $this->app->has('validator')) {
-            return;
-        }
-
-        $this->app['validator']->extend('location', function ($attribute, $value, $parameters, $validator) {
-            return (new \Skywalker\Location\Rules\LocationRule($parameters[0] ?? ''))->passes($attribute, $value);
-        });
-    }
-
-    /**
-     * Register the blade directives.
-     *
-     * @return void
-     */
-    protected function registerBladeDirectives()
-    {
-        if (! $this->app->has('blade.compiler')) {
-            return;
-        }
-
-        $this->app['blade.compiler']->directive('location', function ($expression) {
-            return "<?php if (\$position = \Skywalker\Location\Facades\Location::get()): ?>
-                <?php echo \$position->{$expression} ?? \$position; ?>
-            <?php endif; ?>";
-        });
-    }
-
-    /**
-     * Register the location binding.
-     *
-     * @return void
-     */
-    public function register()
+    public function register(): void
     {
         parent::register();
 
@@ -99,13 +59,45 @@ class LocationServiceProvider extends PackageServiceProvider
     }
 
     /**
+     * Register the validation rules.
+     */
+    protected function registerValidationRules(): void
+    {
+        if (! $this->app->has('validator')) {
+            return;
+        }
+
+        $this->app['validator']->extend('location', function ($attribute, $value, $parameters) {
+            return (new \Skywalker\Location\Rules\LocationRule($parameters[0] ?? ''))->passes($attribute, $value);
+        });
+    }
+
+    /**
      * Get the services provided by the provider.
      *
      * @return array
      */
-    public function provides()
+    public function provides(): array
     {
         return ['location'];
+    }
+
+    /**
+     * Register the package's custom blade directives.
+     */
+    protected function registerBladeDirectives(): void
+    {
+        parent::registerBladeDirectives();
+
+        if (! $this->app->has('blade.compiler')) {
+            return;
+        }
+
+        $this->app['blade.compiler']->directive('location', function ($expression) {
+            return "<?php if (\$position = \Skywalker\Location\Facades\Location::get()): ?>
+                <?php echo \$position->{$expression} ?? \$position; ?>
+            <?php endif; ?>";
+        });
     }
 
     /**
@@ -113,9 +105,8 @@ class LocationServiceProvider extends PackageServiceProvider
      *
      * @return bool
      */
-    protected function isLumen()
+    protected function isLumen(): bool
     {
         return Str::contains($this->app->version(), 'Lumen');
     }
 }
-

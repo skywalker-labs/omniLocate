@@ -4,9 +4,11 @@ namespace Skywalker\Location\Middleware;
 
 use Closure;
 use Skywalker\Location\Facades\Location;
+use Skywalker\Support\Http\Concerns\ApiResponse;
 
 class GeoRestriction
 {
+    use ApiResponse;
     /**
      * Handle an incoming request.
      *
@@ -23,15 +25,14 @@ class GeoRestriction
             $blocked = config('location.restriction.blocked_countries', []);
 
             if (!empty($allowed) && !in_array($position->countryCode, $allowed)) {
-                return response('Access Denied from your country.', 403);
+                return $this->apiError('Access Denied from your country.', 403);
             }
 
             if (!empty($blocked) && in_array($position->countryCode, $blocked)) {
-                return response('Access Denied from your country.', 403);
+                return $this->apiError('Access Denied from your country.', 403);
             }
         }
 
         return $next($request);
     }
 }
-

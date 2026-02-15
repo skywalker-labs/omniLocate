@@ -4,9 +4,11 @@ namespace Skywalker\Location\Middleware;
 
 use Closure;
 use Skywalker\Location\Facades\Location;
+use Skywalker\Support\Http\Concerns\ApiResponse;
 
 class BotVerifier
 {
+    use ApiResponse;
     /**
      * Handle an incoming request.
      *
@@ -67,7 +69,7 @@ class BotVerifier
 
             if ($needsVerification) {
                 if (! Location::isVerifiedBot()) {
-                    return response('Access Denied: Unverified Crawler. Spoofed User-Agent detected.', 403);
+                    return $this->apiError('Access Denied: Unverified Crawler. Spoofed User-Agent detected.', 403);
                 }
             }
         }
@@ -75,4 +77,3 @@ class BotVerifier
         return $next($request);
     }
 }
-

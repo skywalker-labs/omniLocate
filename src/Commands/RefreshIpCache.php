@@ -2,7 +2,7 @@
 
 namespace Skywalker\Location\Commands;
 
-use Illuminate\Console\Command;
+use Skywalker\Support\Console\Command;
 use Skywalker\Location\Facades\Location;
 
 class RefreshIpCache extends Command
@@ -24,9 +24,9 @@ class RefreshIpCache extends Command
     /**
      * Execute the console command.
      *
-     * @return void
+     * @return int
      */
-    public function handle()
+    public function handle(): int
     {
         $ip = $this->argument('ip');
 
@@ -54,7 +54,7 @@ class RefreshIpCache extends Command
         }
 
         $this->info('Done!');
+
+        return static::SUCCESS;
     }
 }
-
-

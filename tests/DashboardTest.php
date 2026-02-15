@@ -23,7 +23,7 @@ class DashboardTest extends TestCase
     {
         parent::setUp();
 
-        Schema::create('geo_analytics', function (Blueprint $table) {
+        Schema::create('location_geo_analytics', function (Blueprint $table) {
             $table->id();
             $table->string('ip')->nullable();
             $table->string('country_code')->nullable();
@@ -54,19 +54,25 @@ class DashboardTest extends TestCase
 
         $response->assertStatus(200)
             ->assertJson([
-                'total_requests' => 2,
-                'blocked_threats' => 1,
-                'risk_distribution' => [1, 0, 1] // Low, Med, High
+                'status' => 'success',
+                'data' => [
+                    'total_requests' => 2,
+                    'blocked_threats' => 1,
+                    'risk_distribution' => [1, 0, 1]
+                ]
             ])
             ->assertJsonStructure([
-                'total_requests',
-                'blocked_threats',
-                'top_countries' => [
-                    '*' => ['country_code', 'count']
-                ],
-                'risk_distribution',
-                'logs'
+                'status',
+                'message',
+                'data' => [
+                    'total_requests',
+                    'blocked_threats',
+                    'top_countries' => [
+                        '*' => ['country_code', 'count']
+                    ],
+                    'risk_distribution',
+                    'logs'
+                ]
             ]);
     }
 }
-

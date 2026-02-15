@@ -4,9 +4,11 @@ namespace Skywalker\Location\Middleware;
 
 use Closure;
 use Skywalker\Location\Facades\Location;
+use Skywalker\Support\Http\Concerns\ApiResponse;
 
 class GeoRiskGuard
 {
+    use ApiResponse;
     /**
      * Handle an incoming request.
      *
@@ -23,11 +25,10 @@ class GeoRiskGuard
             $threshold = $threshold ?: config('location.risk.threshold', 80);
 
             if ($position->geoRiskScore >= $threshold) {
-                return response('Access Denied: High Risk IP.', 403);
+                return $this->apiError('Access Denied: High Risk IP.', 403);
             }
         }
 
         return $next($request);
     }
 }
-

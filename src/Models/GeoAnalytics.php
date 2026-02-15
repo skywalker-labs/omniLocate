@@ -2,11 +2,11 @@
 
 namespace Skywalker\Location\Models;
 
-use Illuminate\Database\Eloquent\Model;
+use Skywalker\Support\Database\PrefixedModel;
 
-class GeoAnalytics extends Model
+class GeoAnalytics extends PrefixedModel
 {
-    protected $table = 'geo_analytics';
+    protected $table = 'location_geo_analytics';
 
     protected $fillable = [
         'ip',
@@ -21,4 +21,3 @@ class GeoAnalytics extends Model
         'method',
     ];
 }
-

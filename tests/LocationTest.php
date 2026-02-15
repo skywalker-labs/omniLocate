@@ -90,6 +90,7 @@ class LocationTest extends TestCase
 
         $this->assertInstanceOf(Position::class, $position);
         $this->assertEquals([
+            'ip' => '66.102.0.0',
             'countryName' => 'United States',
             'countryCode' => 'US',
             'regionCode' => 'CA',
@@ -102,7 +103,6 @@ class LocationTest extends TestCase
             'longitude' => '50',
             'metroCode' => null,
             'areaCode' => 'CA',
-            'ip' => '66.102.0.0',
             'timezone' => 'America/Toronto',
             'currencyCode' => 'USD',
             'driver' => get_class($driver),
@@ -114,7 +114,7 @@ class LocationTest extends TestCase
             'isp' => null,
             'asn' => null,
             'org' => null,
-            'connectionType' => null,
+            'connectionType' => 'Unknown',
             'language' => 'en',
         ], $position->toArray());
     }
@@ -145,6 +145,7 @@ class LocationTest extends TestCase
 
         $this->assertInstanceOf(Position::class, $position);
         $this->assertEquals([
+            'ip' => '66.102.0.0',
             'countryName' => 'United States',
             'countryCode' => 'US',
             'regionCode' => 'CA',
@@ -157,7 +158,6 @@ class LocationTest extends TestCase
             'longitude' => '50',
             'metroCode' => null,
             'areaCode' => '555',
-            'ip' => '66.102.0.0',
             'timezone' => 'America/Toronto',
             'currencyCode' => 'USD',
             'driver' => get_class($driver),
@@ -169,7 +169,7 @@ class LocationTest extends TestCase
             'isp' => null,
             'asn' => null,
             'org' => null,
-            'connectionType' => null,
+            'connectionType' => 'Unknown',
             'language' => 'en',
         ], $position->toArray());
     }
@@ -197,6 +197,7 @@ class LocationTest extends TestCase
 
         $this->assertInstanceOf(Position::class, $position);
         $this->assertEquals([
+            'ip' => '66.102.0.0',
             'countryName' => null,
             'countryCode' => 'US',
             'regionCode' => null,
@@ -209,7 +210,6 @@ class LocationTest extends TestCase
             'longitude' => '50',
             'metroCode' => null,
             'areaCode' => null,
-            'ip' => '66.102.0.0',
             'timezone' => 'America/Toronto',
             'currencyCode' => 'USD',
             'driver' => get_class($driver),
@@ -221,7 +221,7 @@ class LocationTest extends TestCase
             'isp' => null,
             'asn' => null,
             'org' => null,
-            'connectionType' => null,
+            'connectionType' => 'Unknown',
             'language' => 'en',
         ], $position->toArray());
     }
@@ -252,6 +252,7 @@ class LocationTest extends TestCase
 
         $this->assertInstanceOf(Position::class, $position);
         $this->assertEquals([
+            'ip' => '66.102.0.0',
             'countryName' => 'United States',
             'countryCode' => 'US',
             'regionCode' => null,
@@ -264,7 +265,6 @@ class LocationTest extends TestCase
             'longitude' => '50',
             'metroCode' => '5555',
             'areaCode' => null,
-            'ip' => '66.102.0.0',
             'timezone' => 'America/Toronto',
             'currencyCode' => 'USD',
             'driver' => get_class($driver),
@@ -276,7 +276,7 @@ class LocationTest extends TestCase
             'isp' => null,
             'asn' => null,
             'org' => null,
-            'connectionType' => null,
+            'connectionType' => 'Unknown',
             'language' => 'en',
         ], $position->toArray());
     }
@@ -308,6 +308,7 @@ class LocationTest extends TestCase
 
         $this->assertInstanceOf(Position::class, $position);
         $this->assertEquals([
+            'ip' => '66.102.0.0',
             'countryName' => 'United States',
             'countryCode' => 'US',
             'regionCode' => 'CA',
@@ -320,7 +321,6 @@ class LocationTest extends TestCase
             'longitude' => '50',
             'metroCode' => null,
             'areaCode' => null,
-            'ip' => '66.102.0.0',
             'timezone' => 'America/Toronto',
             'currencyCode' => 'USD',
             'driver' => get_class($driver),
@@ -332,7 +332,7 @@ class LocationTest extends TestCase
             'isp' => null,
             'asn' => null,
             'org' => null,
-            'connectionType' => null,
+            'connectionType' => 'Unknown',
             'language' => 'en',
         ], $position->toArray());
     }
@@ -350,4 +350,3 @@ class LocationTest extends TestCase
         $this->assertFalse($position->isEmpty());
     }
 }
-
