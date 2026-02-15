@@ -1,6 +1,6 @@
 <?php
 
-namespace Ermradulsharma\OmniLocate\Exceptions;
+namespace Skywalker\Location\Exceptions;
 
 class DriverDoesNotExistException extends LocationException
 {
@@ -18,3 +18,4 @@ class DriverDoesNotExistException extends LocationException
         );
     }
 }
+

@@ -7,7 +7,7 @@
 To detect the location of the current user based on their IP address:
 
 ```php
-use Ermradulsharma\OmniLocate\Facades\Location;
+use Skywalker\Location\Facades\Location;
 
 if ($position = Location::get()) {
     // Successfully detected
@@ -27,7 +27,7 @@ $position = Location::get('8.8.8.8');
 
 ## Accessing Position Data
 
-The `Location::get()` method returns a `Ermradulsharma\OmniLocate\Position` object with the following public properties:
+The `Location::get()` method returns a `Skywalker\Location\Position` object with the following public properties:
 
 - `ip`: The IP address used.
 - `countryName`: Full name of the country (e.g., "United States").
@@ -92,3 +92,4 @@ $request->validate([
 ```
 
 This ensures the `signup_ip` resolves to a location within India or the United States.
+

@@ -1,11 +1,11 @@
 <?php
 
-namespace Ermradulsharma\OmniLocate\Tests;
+namespace Skywalker\Location\Tests;
 
 use Mockery as m;
-use Ermradulsharma\OmniLocate\Position;
-use Ermradulsharma\OmniLocate\Drivers\HttpHeader;
-use Ermradulsharma\OmniLocate\Rules\LocationRule;
+use Skywalker\Location\Position;
+use Skywalker\Location\Drivers\HttpHeader;
+use Skywalker\Location\Rules\LocationRule;
 use Illuminate\Support\Fluent;
 
 class FeatureTest extends TestCase
@@ -50,7 +50,7 @@ class FeatureTest extends TestCase
     {
         $rule = new LocationRule('India');
 
-        $driver = m::mock(\Ermradulsharma\OmniLocate\Drivers\Driver::class);
+        $driver = m::mock(\Skywalker\Location\Drivers\Driver::class);
 
         $india = new Position();
         $india->countryName = 'India';
@@ -63,7 +63,7 @@ class FeatureTest extends TestCase
         $driver->shouldReceive('get')->with('1.1.1.1')->andReturn($india);
         $driver->shouldReceive('get')->with('8.8.8.8')->andReturn($us);
 
-        \Ermradulsharma\OmniLocate\Facades\Location::setDriver($driver);
+        \Skywalker\Location\Facades\Location::setDriver($driver);
 
         $this->assertTrue($rule->passes('ip', '1.1.1.1'));
         $this->assertFalse($rule->passes('ip', '8.8.8.8'));
@@ -94,7 +94,7 @@ class FeatureTest extends TestCase
         $position = new Position();
         $position->countryCode = 'IN';
 
-        $driver = m::mock(\Ermradulsharma\OmniLocate\Drivers\Driver::class);
+        $driver = m::mock(\Skywalker\Location\Drivers\Driver::class);
         $driver->shouldReceive('get')->andReturn($position);
         $location->setDriver($driver);
 
@@ -115,3 +115,4 @@ class FeatureTest extends TestCase
         $this->assertFalse($location->get('1.1.1.1'));
     }
 }
+

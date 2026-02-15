@@ -18,3 +18,4 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Blade directives for easy location display.
 - Validation rules for location-aware requests.
 - Comprehensive documentation.
+

@@ -1,10 +1,10 @@
 <?php
 
-namespace Ermradulsharma\OmniLocate;
+namespace Skywalker\Location;
 
 use Illuminate\Contracts\Config\Repository;
-use Ermradulsharma\OmniLocate\Drivers\Driver;
-use Ermradulsharma\OmniLocate\Exceptions\DriverDoesNotExistException;
+use Skywalker\Location\Drivers\Driver;
+use Skywalker\Location\Exceptions\DriverDoesNotExistException;
 
 class Location
 {
@@ -78,7 +78,7 @@ class Location
      *
      * @param string|null $ip
      *
-     * @return \Ermradulsharma\OmniLocate\Position|bool
+     * @return \Skywalker\Location\Position|bool
      */
     public function get($ip = null)
     {
@@ -114,6 +114,13 @@ class Location
     protected function hydrateAdvancedFeatures(Position $position)
     {
         $position->currencyCode = $this->getCurrencyCode($position->countryCode);
+        $position->language = $this->getLanguageCode($position->countryCode);
+
+        // Simple heuristic for connection type if not provided by driver
+        if (!$position->connectionType && $position->ip) {
+            // This is very basic, a real implementation would need a database
+            $position->connectionType = 'Unknown';
+        }
     }
 
     /**
@@ -135,9 +142,37 @@ class Location
             'IT' => 'EUR',
             'ES' => 'EUR',
             'JP' => 'JPY',
+            'BR' => 'BRL',
+            'CN' => 'CNY',
+            'RU' => 'RUB',
         ];
 
         return $currencies[strtoupper($countryCode)] ?? null;
+    }
+
+    /**
+     * Get the language code for the given country code.
+     *
+     * @param string|null $countryCode
+     * @return string|null
+     */
+    protected function getLanguageCode($countryCode)
+    {
+        $languages = [
+            'US' => 'en',
+            'GB' => 'en',
+            'IN' => 'hi', // or en
+            'DE' => 'de',
+            'FR' => 'fr',
+            'ES' => 'es',
+            'IT' => 'it',
+            'JP' => 'ja',
+            'CN' => 'zh',
+            'RU' => 'ru',
+            'BR' => 'pt',
+        ];
+
+        return $languages[strtoupper($countryCode)] ?? null;
     }
 
     /**
@@ -160,6 +195,66 @@ class Location
         }
 
         return false;
+    }
+
+    /**
+     * Determine if the current user is a VERIFIED bot (e.g., real Googlebot).
+     *
+     * @return bool
+     */
+    public function isVerifiedBot()
+    {
+        if (!$this->isBot()) {
+            return false;
+        }
+
+        $ip = request()->ip();
+        $agent = strtolower(request()->userAgent());
+
+        // Skip verification for local testing IPs if needed, or handle gracefully
+        if ($ip === '127.0.0.1' || $ip === '::1') {
+            return true;
+        }
+
+        // Cache the verification to avoid slow DNS lookups on every request
+        return cache()->remember("bot_verified.$ip", 3600, function () use ($ip, $agent) {
+            $hostname = gethostbyaddr($ip);
+
+            if (!$hostname || $hostname === $ip) {
+                return false;
+            }
+
+            // Check against trusted domains based on User-Agent
+            // This config should be added to location.php
+            $trusted = $this->config->get('location.bots.trusted_domains', [
+                'googlebot' => ['.googlebot.com', '.google.com'],
+                'bingbot' => ['.search.msn.com'],
+                'slurp' => ['.crawl.yahoo.net'],
+                'duckduckbot' => ['.duckduckgo.com'],
+                'yandexbot' => ['.yandex.com', '.yandex.ru', '.yandex.net'],
+                'baiduspider' => ['.baidu.com', '.baidu.jp'],
+            ]);
+
+            foreach ($trusted as $botKey => $domains) {
+                if (str_contains($agent, $botKey)) {
+                    foreach ($domains as $domain) {
+                        if (str_ends_with($hostname, $domain)) {
+                            // Double check: forward DNS
+                            // This prevents "fake-google.com" pointing to a malicious IP,
+                            // though strictly checking endswith .googlebot.com is usually safe-ish
+                            // if the top-level domain is controlled.
+                            // For maximum security, resolve the hostname back to IP.
+                            $resolvedIps = gethostbynamel($hostname);
+                            if ($resolvedIps && in_array($ip, $resolvedIps)) {
+                                return true;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return false;
+        });
     }
 
     /**
@@ -264,3 +359,4 @@ class Location
         return app()->make($driver);
     }
 }
+

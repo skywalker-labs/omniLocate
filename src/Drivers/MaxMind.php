@@ -1,12 +1,12 @@
 <?php
 
-namespace Ermradulsharma\OmniLocate\Drivers;
+namespace Skywalker\Location\Drivers;
 
 use Exception;
 use GeoIp2\Database\Reader;
 use GeoIp2\WebService\Client;
 use Illuminate\Support\Fluent;
-use Ermradulsharma\OmniLocate\Position;
+use Skywalker\Location\Position;
 
 class MaxMind extends Driver
 {
@@ -35,6 +35,17 @@ class MaxMind extends Driver
         $position->latitude = $location->latitude;
         $position->longitude = $location->longitude;
 
+        $position->isProxy = $location->isProxy;
+        // MaxMind basic doesn't fully distinguish VPN vs Proxy easily without Enterprise, 
+        // but isAnonymousProxy is a good start. isVpn might need a different source or heuristics.
+        $position->isVpn = $location->isVpn;
+        $position->isTor = $location->isTorExitNode;
+        $position->isHosting = $location->isHostingProvider;
+        $position->isp = $location->isp;
+        $position->org = $location->organization;
+        $position->asn = $location->asn;
+        $position->connectionType = $location->connectionType;
+
         return $position;
     }
 
@@ -45,6 +56,9 @@ class MaxMind extends Driver
     {
         try {
             $record = $this->fetchLocation($ip);
+
+            // Safer access to optional properties using object access or existence check
+            $traits = $record->traits;
 
             return new Fluent([
                 'country' => $record->country->name,
@@ -57,6 +71,16 @@ class MaxMind extends Driver
                 'latitude' => (string) $record->location->latitude,
                 'longitude' => (string) $record->location->longitude,
                 'metro_code' => (string) $record->location->metroCode,
+
+                // IP Intelligence
+                'isProxy' => $traits->isAnonymousProxy ?? false,
+                'isVpn' => $traits->isAnonymousVpn ?? false, // Often requires Enterprise/Insights
+                'isTorExitNode' => $traits->isTorExitNode ?? false,
+                'isHostingProvider' => $traits->isHostingProvider ?? false, // Often requires Enterprise/Insights
+                'isp' => $traits->isp ?? null,
+                'organization' => $traits->organization ?? null,
+                'asn' => $traits->autonomousSystemNumber ?? null,
+                'connectionType' => $traits->connectionType ?? null, // e.g. 'Cable/DSL', 'Corporate', 'Cellular'
             ]);
         } catch (Exception $e) {
             return false;
@@ -158,3 +182,4 @@ class MaxMind extends Driver
         return config('location.maxmind.local.path', database_path('maxmind/GeoLite2-City.mmdb'));
     }
 }
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace Ermradulsharma\OmniLocate\Drivers;
+namespace Skywalker\Location\Drivers;
 
 class IpApiPro extends IpApi
 {
@@ -14,3 +14,4 @@ class IpApiPro extends IpApi
         return "https://pro.ip-api.com/json/$ip?key=$key";
     }
 }
+

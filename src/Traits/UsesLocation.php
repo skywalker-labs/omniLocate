@@ -1,9 +1,9 @@
 <?php
 
-namespace Ermradulsharma\OmniLocate\Traits;
+namespace Skywalker\Location\Traits;
 
-use Ermradulsharma\OmniLocate\Facades\Location as LocationFacade;
-use Ermradulsharma\OmniLocate\Models\Location as LocationModel;
+use Skywalker\Location\Facades\Location as LocationFacade;
+use Skywalker\Location\Models\Location as LocationModel;
 
 trait UsesLocation
 {
@@ -21,7 +21,7 @@ trait UsesLocation
      * Detect and save the model's location.
      *
      * @param  string|null  $ip
-     * @return \Ermradulsharma\OmniLocate\Models\Location|null
+     * @return \Skywalker\Location\Models\Location|null
      */
     public function detectLocation($ip = null)
     {
@@ -32,3 +32,4 @@ trait UsesLocation
         return null;
     }
 }
+

@@ -13,3 +13,4 @@ If you discover a security vulnerability within OmniLocate, please review our se
 ## License
 
 OmniLocate is open-sourced software licensed under the [MIT license](../LICENSE).
+

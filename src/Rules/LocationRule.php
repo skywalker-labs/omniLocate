@@ -1,9 +1,9 @@
 <?php
 
-namespace Ermradulsharma\OmniLocate\Rules;
+namespace Skywalker\Location\Rules;
 
 use Illuminate\Contracts\Validation\Rule;
-use Ermradulsharma\OmniLocate\Facades\Location;
+use Skywalker\Location\Facades\Location;
 
 class LocationRule implements Rule
 {
@@ -51,3 +51,4 @@ class LocationRule implements Rule
         return 'The :attribute must be located in ' . $this->country . '.';
     }
 }
+

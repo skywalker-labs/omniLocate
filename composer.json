@@ -1,24 +1,8 @@
 {
-    "name": "ermradulsharma/omnilocate",
+    "name": "skywalker-labs/location",
     "description": "OmniLocate: Advanced user location detection for Laravel with persistence, caching, and distance utilities.",
-    "authors": [
-        {
-            "name": "Mradul Sharma",
-            "email": "skywalkerlknw@gmail.com"
-        }
-    ],
+    "type": "library",
     "license": "MIT",
-    "homepage": "https://github.com/ermradulsharma/omniLocate",
-    "support": {
-        "source": "https://github.com/ermradulsharma/omniLocate",
-        "wiki": "https://github.com/ermradulsharma/omniLocate/wiki"
-    },
-    "funding": [
-        {
-            "type": "github",
-            "url": "https://github.com/sponsors/ermradulsharma"
-        }
-    ],
     "keywords": [
         "laravel",
         "php",
@@ -26,43 +10,72 @@
         "omnilocate",
         "geoIP",
         "geo-location",
-        "persistence"
+        "persistence",
+        "skywalker"
+    ],
+    "homepage": "https://github.com/skywalker-labs/location",
+    "support": {
+        "issues": "https://github.com/skywalker-labs/location/issues",
+        "source": "https://github.com/skywalker-labs/location",
+        "wiki": "https://github.com/skywalker-labs/location/wiki"
+    },
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/ermradulsharma"
+        }
+    ],
+    "authors": [
+        {
+            "name": "Skywalker Labs Team",
+            "email": "skywalkerlknw@gmail.com",
+            "homepage": "https://skywalker-labs.com/",
+            "role": "Developer"
+        },
+        {
+            "name": "Mradul Sharma",
+            "email": "skywalkerlknw@gmail.com",
+            "homepage": "https://mradulsharma.vercel.app/",
+            "role": "Lead Developer"
+        }
     ],
     "require": {
         "php": ">=7.0",
         "ext-json": "*",
         "ext-curl": "*",
         "illuminate/support": "^7.0|^8.0|^9.0|^10.0|^11.0|^12.0",
-        "geoip2/geoip2": "^2.0|^3.0"
+        "geoip2/geoip2": "^2.0|^3.0",
+        "ermradulsharma/laravel-toolkit": "^1.0|^2.0"
     },
     "require-dev": {
         "mockery/mockery": "^1.0",
         "orchestra/testbench": "^5.0|^6.0|^7.0|^8.0|^9.0|^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Skywalker\\Location\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Skywalker\\Location\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Skywalker\\Location\\LocationServiceProvider"
+            ],
+            "aliases": {
+                "Location": "Skywalker\\Location\\Facades\\Location"
+            }
+        }
     },
     "archive": {
         "exclude": [
             "/tests"
         ]
     },
-    "autoload": {
-        "psr-4": {
-            "Ermradulsharma\\OmniLocate\\": "src/"
-        }
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "Ermradulsharma\\OmniLocate\\Tests\\": "tests/"
-        }
-    },
     "minimum-stability": "stable",
-    "extra": {
-        "laravel": {
-            "providers": [
-                "Ermradulsharma\\OmniLocate\\LocationServiceProvider"
-            ],
-            "aliases": {
-                "Location": "Ermradulsharma\\OmniLocate\\Facades\\Location"
-            }
-        }
-    }
+    "prefer-stable": true
 }

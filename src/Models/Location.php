@@ -1,6 +1,6 @@
 <?php
 
-namespace Ermradulsharma\OmniLocate\Models;
+namespace Skywalker\Location\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -33,3 +33,4 @@ class Location extends Model
         return $this->morphTo();
     }
 }
+

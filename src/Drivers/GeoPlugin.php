@@ -1,10 +1,10 @@
 <?php
 
-namespace Ermradulsharma\OmniLocate\Drivers;
+namespace Skywalker\Location\Drivers;
 
 use Exception;
 use Illuminate\Support\Fluent;
-use Ermradulsharma\OmniLocate\Position;
+use Skywalker\Location\Position;
 
 class GeoPlugin extends Driver
 {
@@ -48,3 +48,4 @@ class GeoPlugin extends Driver
         }
     }
 }
+

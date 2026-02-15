@@ -2,7 +2,7 @@
 
 ## Facade: Location
 
-Namespace: `Ermradulsharma\OmniLocate\Facades\Location`
+Namespace: `Skywalker\Location\Facades\Location`
 
 ### Location Methods
 
@@ -12,14 +12,14 @@ Attempt to retrieve the location of the user or a specific IP.
 
 - **Parameters:**
   - `$ip` (string|null): The IP address to look up. Defaults to the client's IP.
-- **Returns:** `Ermradulsharma\OmniLocate\Position` | `bool` (false on failure or bot)
+- **Returns:** `Skywalker\Location\Position` | `bool` (false on failure or bot)
 
 #### `fallback(Driver $driver)`
 
 Add a fallback driver at runtime.
 
 - **Parameters:**
-  - `$driver` (`Ermradulsharma\OmniLocate\Drivers\Driver`): The driver instance.
+  - `$driver` (`Skywalker\Location\Drivers\Driver`): The driver instance.
 - **Returns:** `void`
 
 #### `setDriver(Driver $driver)`
@@ -27,12 +27,12 @@ Add a fallback driver at runtime.
 Set the current driver to use, overriding the default.
 
 - **Parameters:**
-  - `$driver` (`Ermradulsharma\OmniLocate\Drivers\Driver`): The driver instance.
+  - `$driver` (`Skywalker\Location\Drivers\Driver`): The driver instance.
 - **Returns:** `void`
 
 ## Class: Position
 
-Namespace: `Ermradulsharma\OmniLocate\Position`
+Namespace: `Skywalker\Location\Position`
 
 Holds the location data retrieved from a driver.
 
@@ -81,3 +81,4 @@ Check if the position data is effectively empty (only contains IP and driver inf
 Get the instance data as an array.
 
 - **Returns:** `array`
+

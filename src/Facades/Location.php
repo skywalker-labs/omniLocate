@@ -1,15 +1,15 @@
 <?php
 
-namespace Ermradulsharma\OmniLocate\Facades;
+namespace Skywalker\Location\Facades;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @method static \Ermradulsharma\OmniLocate\Position|bool get(string $ip = null)
- * @method static void setDriver(\Ermradulsharma\OmniLocate\Drivers\Driver $driver)
- * @method static void fallback(\Ermradulsharma\OmniLocate\Drivers\Driver $driver)
+ * @method static \Skywalker\Location\Position|bool get(string $ip = null)
+ * @method static void setDriver(\Skywalker\Location\Drivers\Driver $driver)
+ * @method static void fallback(\Skywalker\Location\Drivers\Driver $driver)
  *
- * @see \Ermradulsharma\OmniLocate\Location
+ * @see \Skywalker\Location\Location
  */
 class Location extends Facade
 {
@@ -23,3 +23,4 @@ class Location extends Facade
         return 'location';
     }
 }
+

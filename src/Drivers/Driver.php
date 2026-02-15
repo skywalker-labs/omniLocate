@@ -1,9 +1,9 @@
 <?php
 
-namespace Ermradulsharma\OmniLocate\Drivers;
+namespace Skywalker\Location\Drivers;
 
 use Illuminate\Support\Fluent;
-use Ermradulsharma\OmniLocate\Position;
+use Skywalker\Location\Position;
 
 abstract class Driver
 {
@@ -123,7 +123,7 @@ abstract class Driver
      * @param Position $position
      * @param Fluent   $location
      *
-     * @return \Ermradulsharma\OmniLocate\Position
+     * @return \Skywalker\Location\Position
      */
     abstract protected function hydrate(Position $position, Fluent $location);
 
@@ -136,3 +136,4 @@ abstract class Driver
      */
     abstract protected function process($ip);
 }
+

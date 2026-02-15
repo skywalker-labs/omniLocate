@@ -76,8 +76,8 @@ You can chain drivers to ensure that if the primary driver fails (e.g., API down
 ```php
 // config/location.php
 'fallbacks' => [
-    Ermradulsharma\OmniLocate\Drivers\IpApi::class,
-    Ermradulsharma\OmniLocate\Drivers\IpInfo::class,
+    Skywalker\Location\Drivers\IpApi::class,
+    Skywalker\Location\Drivers\IpInfo::class,
 ],
 ```
 
@@ -86,21 +86,21 @@ You can chain drivers to ensure that if the primary driver fails (e.g., API down
 You can also add fallbacks dynamically at runtime:
 
 ```php
-use Ermradulsharma\OmniLocate\Facades\Location;
-use Ermradulsharma\OmniLocate\Drivers\IpInfo;
+use Skywalker\Location\Facades\Location;
+use Skywalker\Location\Drivers\IpInfo;
 
 Location::fallback(new IpInfo());
 ```
 
 ## Creating Custom Drivers
 
-To create a custom driver, extend the `Ermradulsharma\OmniLocate\Drivers\Driver` abstract class.
+To create a custom driver, extend the `Skywalker\Location\Drivers\Driver` abstract class.
 
 ```php
 namespace App\Location\Drivers;
 
-use Ermradulsharma\OmniLocate\Drivers\Driver;
-use Ermradulsharma\OmniLocate\Position;
+use Skywalker\Location\Drivers\Driver;
+use Skywalker\Location\Position;
 use Illuminate\Support\Fluent;
 
 class MyCustomDriver extends Driver
@@ -123,3 +123,4 @@ class MyCustomDriver extends Driver
     }
 }
 ```
+

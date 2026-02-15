@@ -1,18 +1,18 @@
 <?php
 
-namespace Ermradulsharma\OmniLocate\Tests;
+namespace Skywalker\Location\Tests;
 
 use Mockery as m;
 use Illuminate\Support\Fluent;
-use Ermradulsharma\OmniLocate\Drivers\IpData;
-use Ermradulsharma\OmniLocate\Position;
-use Ermradulsharma\OmniLocate\Drivers\IpApi;
-use Ermradulsharma\OmniLocate\Drivers\IpInfo;
-use Ermradulsharma\OmniLocate\Drivers\Driver;
-use Ermradulsharma\OmniLocate\Drivers\MaxMind;
-use Ermradulsharma\OmniLocate\Drivers\GeoPlugin;
-use Ermradulsharma\OmniLocate\Facades\Location;
-use Ermradulsharma\OmniLocate\Exceptions\DriverDoesNotExistException;
+use Skywalker\Location\Drivers\IpData;
+use Skywalker\Location\Position;
+use Skywalker\Location\Drivers\IpApi;
+use Skywalker\Location\Drivers\IpInfo;
+use Skywalker\Location\Drivers\Driver;
+use Skywalker\Location\Drivers\MaxMind;
+use Skywalker\Location\Drivers\GeoPlugin;
+use Skywalker\Location\Facades\Location;
+use Skywalker\Location\Exceptions\DriverDoesNotExistException;
 
 class LocationTest extends TestCase
 {
@@ -106,6 +106,16 @@ class LocationTest extends TestCase
             'timezone' => 'America/Toronto',
             'currencyCode' => 'USD',
             'driver' => get_class($driver),
+            'isProxy' => null,
+            'isVpn' => null,
+            'isTor' => null,
+            'isHosting' => null,
+            'geoRiskScore' => null,
+            'isp' => null,
+            'asn' => null,
+            'org' => null,
+            'connectionType' => null,
+            'language' => 'en',
         ], $position->toArray());
     }
 
@@ -151,6 +161,16 @@ class LocationTest extends TestCase
             'timezone' => 'America/Toronto',
             'currencyCode' => 'USD',
             'driver' => get_class($driver),
+            'isProxy' => null,
+            'isVpn' => null,
+            'isTor' => null,
+            'isHosting' => null,
+            'geoRiskScore' => null,
+            'isp' => null,
+            'asn' => null,
+            'org' => null,
+            'connectionType' => null,
+            'language' => 'en',
         ], $position->toArray());
     }
 
@@ -193,6 +213,16 @@ class LocationTest extends TestCase
             'timezone' => 'America/Toronto',
             'currencyCode' => 'USD',
             'driver' => get_class($driver),
+            'isProxy' => null,
+            'isVpn' => null,
+            'isTor' => null,
+            'isHosting' => null,
+            'geoRiskScore' => null,
+            'isp' => null,
+            'asn' => null,
+            'org' => null,
+            'connectionType' => null,
+            'language' => 'en',
         ], $position->toArray());
     }
 
@@ -238,6 +268,16 @@ class LocationTest extends TestCase
             'timezone' => 'America/Toronto',
             'currencyCode' => 'USD',
             'driver' => get_class($driver),
+            'isProxy' => null,
+            'isVpn' => null,
+            'isTor' => null,
+            'isHosting' => null,
+            'geoRiskScore' => null,
+            'isp' => null,
+            'asn' => null,
+            'org' => null,
+            'connectionType' => null,
+            'language' => 'en',
         ], $position->toArray());
     }
 
@@ -284,6 +324,16 @@ class LocationTest extends TestCase
             'timezone' => 'America/Toronto',
             'currencyCode' => 'USD',
             'driver' => get_class($driver),
+            'isProxy' => null,
+            'isVpn' => null,
+            'isTor' => null,
+            'isHosting' => null,
+            'geoRiskScore' => null,
+            'isp' => null,
+            'asn' => null,
+            'org' => null,
+            'connectionType' => null,
+            'language' => 'en',
         ], $position->toArray());
     }
 
@@ -300,3 +350,4 @@ class LocationTest extends TestCase
         $this->assertFalse($position->isEmpty());
     }
 }
+

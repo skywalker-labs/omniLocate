@@ -22,3 +22,14 @@
 - **🤖 Bot Filtering**: Automatically skips detection for major search engine bots.
 - **🧩 Fluent API**: Elegant, human-readable syntax for all operations.
 - **🎨 Blade Integration**: Simple directives to display location data directly in your templates.
+- **📊 Visual Intelligence Dashboard**: Built-in dashboard to monitor traffic and threats.
+- **🛰️ Hybrid Geolocation**: Verify physical vs IP location to prevent spoofing.
+
+## Documentation
+
+- [Installation & Configuration](Installation-and-Configuration)
+- [Usage Guide](Usage)
+- [Security Shield (Bots, Tor, Risk)](Security-Shield)
+- [Hybrid Geolocation](Hybrid-Geolocation)
+- [Visual Dashboard](Dashboard)
+

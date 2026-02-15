@@ -11,7 +11,7 @@ return [
     |
     */
 
-    'driver' => Ermradulsharma\OmniLocate\Drivers\HttpHeader::class,
+    'driver' => Skywalker\Location\Drivers\HttpHeader::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -27,13 +27,13 @@ return [
 
     'fallbacks' => [
 
-        Ermradulsharma\OmniLocate\Drivers\IpApi::class,
+        Skywalker\Location\Drivers\IpApi::class,
 
-        Ermradulsharma\OmniLocate\Drivers\IpInfo::class,
+        Skywalker\Location\Drivers\IpInfo::class,
 
-        Ermradulsharma\OmniLocate\Drivers\GeoPlugin::class,
+        Skywalker\Location\Drivers\GeoPlugin::class,
 
-        Ermradulsharma\OmniLocate\Drivers\MaxMind::class,
+        Skywalker\Location\Drivers\MaxMind::class,
 
     ],
 
@@ -48,7 +48,7 @@ return [
     |
     */
 
-    'position' => Ermradulsharma\OmniLocate\Position::class,
+    'position' => Skywalker\Location\Position::class,
 
     /*
     |--------------------------------------------------------------------------
@@ -175,13 +175,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Bot Detection
+    | Smart Bot Detection (Active Security)
     |--------------------------------------------------------------------------
     |
-    | If you want to skip location detection for bots, set 'enabled' to true.
+    | When enabled, OmniLocate will perform advanced verification for search
+    | engine bots. It checks the User-Agent AND performs a Reverse DNS lookup
+    | to verify the IP truly belongs to Google, Bing, etc.
+    |
+    | 'enabled': Set to true to activate bot verification.
+    | 'list': List of bot substrings to match in User-Agent.
+    | 'trusted_domains': The required domain suffixes for Reverse DNS verification.
     |
     */
-
     'bots' => [
 
         'enabled' => true,
@@ -198,6 +203,94 @@ return [
             'ia_archiver',
         ],
 
+        'trusted_domains' => [
+            'googlebot' => ['.googlebot.com', '.google.com'],
+            'bingbot' => ['.search.msn.com'],
+            'slurp' => ['.crawl.yahoo.net'],
+            'duckduckbot' => ['.duckduckgo.com'],
+            'yandexbot' => ['.yandex.com', '.yandex.ru', '.yandex.net'],
+            'baiduspider' => ['.baidu.com', '.baidu.jp'],
+        ],
+
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Geo Restriction & Firewall
+    |--------------------------------------------------------------------------
+    |
+    | Control which countries can access your application.
+    |
+    | 'allowed_countries': If not empty, ONLY these ISO codes (e.g., 'US') are allowed.
+    | 'blocked_countries': These ISO codes will be blocked (403 Forbidden).
+    |
+    */
+    'restriction' => [
+        'allowed_countries' => [], // e.g., ['US', 'CA', 'GB']
+        'blocked_countries' => [], // e.g., ['RU', 'CN', 'NK']
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Geo Risk Guard
+    |--------------------------------------------------------------------------
+    |
+    | Automatically block high-risk IP addresses based on their MaxMind/IP-API score.
+    |
+    | 'threshold': The risk score (0-100) above which a request is blocked.
+    |              0 = Safe, 100 = High Fraud Risk.
+    |
+    */
+    'risk' => [
+        'threshold' => 80, // Recommended: 75-85 for strict security
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Tor Network Blocker
+    |--------------------------------------------------------------------------
+    |
+    | Determine whether to block traffic originating from known Tor exit nodes.
+    | This is useful for preventing anonymous abuse/spam.
+    |
+    */
+    'tor' => [
+        'block' => false,
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Hybrid Geolocation (The "Omni" Factor)
+    |--------------------------------------------------------------------------
+    |
+    | Detects spoofing by comparing the User's IP Location vs their Physical
+    | GPS Location (provided via frontend).
+    |
+    | 'threshold': The maximum allowed distance (in km) between IP and GPS.
+    |              If the distance exceeds this, the user is flagged as spoofing.
+    |
+    */
+    'hybrid' => [
+        'threshold' => 500, // Distance > 500km considered 'Spoofed'
+    ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | Visual Intelligence Dashboard
+    |--------------------------------------------------------------------------
+    |
+    | OmniLocate includes a built-in dashboard to visualize traffic, threats,
+    | and blocked requests in real-time.
+    |
+    | Access: /omni-locate/dashboard
+    |
+    | 'enabled': Set to false to disable the dashboard routes entirely.
+    |
+    */
+    'dashboard' => [
+        'enabled' => true,
     ],
 
 ];
+
+

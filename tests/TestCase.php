@@ -1,9 +1,9 @@
 <?php
 
-namespace Ermradulsharma\OmniLocate\Tests;
+namespace Skywalker\Location\Tests;
 
 use Orchestra\Testbench\TestCase as BaseTestCase;
-use Ermradulsharma\OmniLocate\LocationServiceProvider;
+use Skywalker\Location\LocationServiceProvider;
 
 class TestCase extends BaseTestCase
 {
@@ -15,3 +15,4 @@ class TestCase extends BaseTestCase
         return [LocationServiceProvider::class];
     }
 }
+

@@ -1,12 +1,24 @@
 <?php
 
-namespace Ermradulsharma\OmniLocate;
+namespace Skywalker\Location;
 
-use Illuminate\Support\Str;
-use Illuminate\Support\ServiceProvider;
+use Skywalker\Support\Providers\PackageServiceProvider;
 
-class LocationServiceProvider extends ServiceProvider
+class LocationServiceProvider extends PackageServiceProvider
 {
+    /**
+     * Vendor name.
+     *
+     * @var string
+     */
+    protected $vendor = 'skywalker';
+
+    /**
+     * Package name.
+     *
+     * @var string
+     */
+    protected $package = 'location';
     /**
      * Run boot operations.
      *
@@ -14,27 +26,19 @@ class LocationServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        parent::boot();
+
         if ($this->isLumen()) {
             return;
         }
 
-        $config = __DIR__ . '/../config/config.php';
+        $this->publishAll();
 
-        if ($this->app->runningInConsole()) {
-            $this->publishes([$config => config_path('location.php')], 'config');
-
-            $this->commands([\Ermradulsharma\OmniLocate\Commands\UpdateMaxMindDatabase::class]);
-
-            if (! class_exists('CreateLocationsTable')) {
-                $stub = __DIR__ . '/../database/migrations/create_locations_table.php.stub';
-
-                $target = database_path('migrations/' . date('Y_m_d_His', time()) . '_create_locations_table.php');
-
-                $this->publishes([$stub => $target], 'migrations');
-            }
+        if ($this->app['config']->get('location.dashboard.enabled', true)) {
+            $this->loadRoutesFrom(__DIR__ . '/routes.php');
         }
 
-        $this->mergeConfigFrom($config, 'location');
+        $this->loadViews();
 
         $this->registerBladeDirectives();
 
@@ -53,7 +57,7 @@ class LocationServiceProvider extends ServiceProvider
         }
 
         $this->app['validator']->extend('location', function ($attribute, $value, $parameters, $validator) {
-            return (new \Ermradulsharma\OmniLocate\Rules\LocationRule($parameters[0] ?? ''))->passes($attribute, $value);
+            return (new \Skywalker\Location\Rules\LocationRule($parameters[0] ?? ''))->passes($attribute, $value);
         });
     }
 
@@ -69,7 +73,7 @@ class LocationServiceProvider extends ServiceProvider
         }
 
         $this->app['blade.compiler']->directive('location', function ($expression) {
-            return "<?php if (\$position = \Ermradulsharma\OmniLocate\Facades\Location::get()): ?>
+            return "<?php if (\$position = \Skywalker\Location\Facades\Location::get()): ?>
                 <?php echo \$position->{$expression} ?? \$position; ?>
             <?php endif; ?>";
         });
@@ -82,9 +86,15 @@ class LocationServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        parent::register();
+
+        $this->registerConfig();
+
         $this->app->singleton('location', function ($app) {
             return new Location($app['config']);
         });
+
+        $this->registerCommands([\Skywalker\Location\Commands\UpdateMaxMindDatabase::class]);
     }
 
     /**
@@ -107,3 +117,4 @@ class LocationServiceProvider extends ServiceProvider
         return Str::contains($this->app->version(), 'Lumen');
     }
 }
+

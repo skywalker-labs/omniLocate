@@ -1,8 +1,8 @@
 <?php
 
-namespace Ermradulsharma\OmniLocate\Events;
+namespace Skywalker\Location\Events;
 
-use Ermradulsharma\OmniLocate\Position;
+use Skywalker\Location\Position;
 
 class LocationDetected
 {
@@ -23,3 +23,4 @@ class LocationDetected
         $this->position = $position;
     }
 }
+

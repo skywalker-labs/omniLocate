@@ -1,6 +1,6 @@
 <?php
 
-namespace Ermradulsharma\OmniLocate\Commands;
+namespace Skywalker\Location\Commands;
 
 use Illuminate\Console\Command;
 
@@ -43,3 +43,5 @@ class UpdateMaxMindDatabase extends Command
         return 0;
     }
 }
+
+

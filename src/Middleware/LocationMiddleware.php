@@ -1,9 +1,9 @@
 <?php
 
-namespace Ermradulsharma\OmniLocate\Middleware;
+namespace Skywalker\Location\Middleware;
 
 use Closure;
-use Ermradulsharma\OmniLocate\Facades\Location;
+use Skywalker\Location\Facades\Location;
 
 class LocationMiddleware
 {
@@ -23,3 +23,4 @@ class LocationMiddleware
         return $next($request);
     }
 }
+

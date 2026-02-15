@@ -1,10 +1,10 @@
 <?php
 
-namespace Ermradulsharma\OmniLocate\Drivers;
+namespace Skywalker\Location\Drivers;
 
 use Exception;
 use Illuminate\Support\Fluent;
-use Ermradulsharma\OmniLocate\Position;
+use Skywalker\Location\Position;
 
 class IpApi extends Driver
 {
@@ -49,3 +49,4 @@ class IpApi extends Driver
         }
     }
 }
+

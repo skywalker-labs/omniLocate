@@ -1,6 +1,6 @@
 <?php
 
-namespace Ermradulsharma\OmniLocate;
+namespace Skywalker\Location;
 
 use Illuminate\Contracts\Support\Arrayable;
 
@@ -119,6 +119,76 @@ class Position implements Arrayable
     public $driver;
 
     /**
+     * True if IP is a proxy.
+     *
+     * @var bool|null
+     */
+    public $isProxy;
+
+    /**
+     * True if IP is a VPN.
+     *
+     * @var bool|null
+     */
+    public $isVpn;
+
+    /**
+     * True if IP is a Tor exit node.
+     *
+     * @var bool|null
+     */
+    public $isTor;
+
+    /**
+     * True if IP belongs to a hosting provider.
+     *
+     * @var bool|null
+     */
+    public $isHosting;
+
+    /**
+     * The Geo risk score (0-100).
+     *
+     * @var int|null
+     */
+    public $geoRiskScore;
+
+    /**
+     * The ISP name.
+     *
+     * @var string|null
+     */
+    public $isp;
+
+    /**
+     * The Autonomous System Number.
+     *
+     * @var string|null
+     */
+    public $asn;
+
+    /**
+     * The Organization or Network Owner.
+     *
+     * @var string|null
+     */
+    public $org;
+
+    /**
+     * The connection type (e.g., specific, corporate, mobile).
+     *
+     * @var string|null
+     */
+    public $connectionType;
+
+    /**
+     * The Language code.
+     *
+     * @var string|null
+     */
+    public $language;
+
+    /**
      * Determine if the position is empty.
      *
      * @return bool
@@ -195,3 +265,4 @@ class Position implements Arrayable
         return $flag;
     }
 }
+

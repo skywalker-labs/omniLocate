@@ -15,10 +15,18 @@ The package will automatically register its service provider and facade.
 Publish the configuration file to customize your drivers and settings:
 
 ```bash
-php artisan vendor:publish --provider="Ermradulsharma\OmniLocate\LocationServiceProvider"
+php artisan vendor:publish --provider="Skywalker\Location\LocationServiceProvider"
 ```
 
-This creates `config/location.php` (or `config/config.php` depending on your setup).
+This creates `config/location.php` and the migration file.
+
+### Migrations
+
+OmniLocate requires a database table to store analytics and logs.
+
+```bash
+php artisan migrate
+```
 
 ### Configuration Options
 
@@ -29,7 +37,7 @@ The configuration file allows you to set up drivers, fallbacks, caching, and mor
 Set the default driver used for location retrieval.
 
 ```php
-'driver' => Ermradulsharma\OmniLocate\Drivers\HttpHeader::class,
+'driver' => Skywalker\Location\Drivers\HttpHeader::class,
 ```
 
 #### Fallbacks
@@ -38,8 +46,8 @@ Define a list of drivers to use if the default driver fails.
 
 ```php
 'fallbacks' => [
-    Ermradulsharma\OmniLocate\Drivers\IpApi::class,
-    Ermradulsharma\OmniLocate\Drivers\IpInfo::class,
+    Skywalker\Location\Drivers\IpApi::class,
+    Skywalker\Location\Drivers\IpInfo::class,
     // ...
 ],
 ```
@@ -63,6 +71,17 @@ Skip location detection for bots to save resources.
 'bots' => [
     'enabled' => true,
     'list' => [ 'googlebot', 'bingbot', ... ],
+    'trusted_domains' => [ ... ],
+],
+```
+
+#### Dashboard
+
+Enable or disable the visual intelligence dashboard.
+
+```php
+'dashboard' => [
+    'enabled' => true,
 ],
 ```
 
@@ -77,3 +96,4 @@ IPDATA_TOKEN=your-token-here
 ```
 
 Refer to the [Drivers](Drivers) page for detailed configuration for each driver.
+

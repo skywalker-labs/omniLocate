@@ -44,3 +44,4 @@ This section guides you through submitting an enhancement suggestion for OmniLoc
 ### PHP Styleguide
 
 All PHP code must follow the [PSR-12](https://www.php-fig.org/psr/psr-12/) coding standard. You can check the code style using PHP_CodeSniffer.
+

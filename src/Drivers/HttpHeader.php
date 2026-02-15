@@ -1,9 +1,9 @@
 <?php
 
-namespace Ermradulsharma\OmniLocate\Drivers;
+namespace Skywalker\Location\Drivers;
 
 use Illuminate\Support\Fluent;
-use Ermradulsharma\OmniLocate\Position;
+use Skywalker\Location\Position;
 
 class HttpHeader extends Driver
 {
@@ -55,3 +55,4 @@ class HttpHeader extends Driver
         return count($data) > 0 ? new Fluent($data) : false;
     }
 }
+

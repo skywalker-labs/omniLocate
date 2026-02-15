@@ -1,8 +1,9 @@
 <?php
 
-namespace Ermradulsharma\OmniLocate\Exceptions;
+namespace Skywalker\Location\Exceptions;
 
 class LocationException extends \Exception
 {
     //
 }
+
