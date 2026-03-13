@@ -9,6 +9,16 @@ use Skywalker\Support\Foundation\Action;
 class VerifyBot extends Action
 {
     /**
+     * {@inheritdoc}
+     *
+     * @return bool
+     */
+    public static function run(...$args)
+    {
+        return app(static::class)->execute(...$args);
+    }
+
+    /**
      * Execute the action.
      *
      * @param  mixed  ...$args

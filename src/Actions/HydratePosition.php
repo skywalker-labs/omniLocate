@@ -10,6 +10,16 @@ use Skywalker\Support\Foundation\Action;
 class HydratePosition extends Action
 {
     /**
+     * {@inheritdoc}
+     *
+     * @return Position
+     */
+    public static function run(...$args)
+    {
+        return app(static::class)->execute(...$args);
+    }
+
+    /**
      * Execute the action.
      *
      * @param  mixed  ...$args

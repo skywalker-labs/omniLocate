@@ -11,6 +11,16 @@ use Skywalker\Support\Foundation\Action;
 class MatchGeoRule extends Action
 {
     /**
+     * {@inheritdoc}
+     *
+     * @return bool
+     */
+    public static function run(...$args)
+    {
+        return app(static::class)->execute(...$args);
+    }
+
+    /**
      * Match a rule against the current or provided position.
      *
      * DSL Format: "country:US,CA;risk<50;is_vpn:false"
